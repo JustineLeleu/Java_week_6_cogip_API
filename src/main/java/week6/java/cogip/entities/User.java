@@ -1,27 +1,28 @@
 package week6.java.cogip.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
-    private short id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short id;
     private String username;
     private String password;
     private String role;
+    
 
-    public User() {
-
-    }
-
-    public User(short id, String username, String password, String role) {
-        this.id = id;
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
-
+    
+    public User() {
+    
+    }
+    
     public short getId() {
         return id;
     }

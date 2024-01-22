@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS `invoice` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int DEFAULT NULL,
-  `username` tinytext,
-  `password` tinytext,
-  `role` tinytext
+  `id` int auto_increment PRIMARY KEY,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
