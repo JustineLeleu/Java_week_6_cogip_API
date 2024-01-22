@@ -1,5 +1,8 @@
 package week6.java.cogip.entities;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class User {
     private short id;
     private String username;
