@@ -1,5 +1,8 @@
 package week6.java.cogip.entities;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Invoice {
     private short id;
     private String timestamp;
