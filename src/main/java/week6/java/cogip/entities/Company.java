@@ -1,14 +1,37 @@
 package week6.java.cogip.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "company")
 public class Company {
-    private short id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private short id;
+	
+	@Column(name = "name")
     private String name;
+	
+	@Column(name ="country")
     private String country;
+	
+	@Column(name = "vat")
     private String tva;
+	
+	@Column(name= "type")
     private String type;
+	
+	@CreationTimestamp
+	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 
 
