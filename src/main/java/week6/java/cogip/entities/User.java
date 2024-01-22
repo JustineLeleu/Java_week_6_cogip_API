@@ -1,13 +1,19 @@
 package week6.java.cogip.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class User {
+    @Id
     private short id;
     private String username;
     private String password;
     private String role;
+
+    public User() {
+
+    }
 
     public User(short id, String username, String password, String role) {
         this.id = id;

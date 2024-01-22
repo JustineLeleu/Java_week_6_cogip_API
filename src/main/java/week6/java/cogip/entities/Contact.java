@@ -1,9 +1,12 @@
 package week6.java.cogip.entities;
 
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Contact {
+    @Id
     private short id;
     private String firstName;
     private String lastName;
@@ -11,6 +14,10 @@ public class Contact {
     private String email;
     private String timestamp;
     private short contactCompanyId;
+
+    public Contact() {
+
+    }
 
     public Contact(short id, String firstName, String lastName, String phone, String email, String timestamp, short contactCompanyId) {
         this.id = id;
@@ -22,7 +29,7 @@ public class Contact {
         this.contactCompanyId = contactCompanyId;
     }
 
-    public int getId() {
+    public short getId() {
         return id;
     }
 
@@ -70,7 +77,7 @@ public class Contact {
         this.timestamp = timestamp;
     }
 
-    public int getContactCompanyId() {
+    public short getContactCompanyId() {
         return contactCompanyId;
     }
 
