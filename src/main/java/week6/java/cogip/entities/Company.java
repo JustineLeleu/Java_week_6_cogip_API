@@ -1,9 +1,11 @@
 package week6.java.cogip.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Company {
+    @Id
     private short id;
     private String name;
     private String country;
@@ -11,6 +13,9 @@ public class Company {
     private String type;
     private String timestamp;
 
+    public Company() {
+
+    }
 
     public Company(short id, String name, String country, String tva, String type, String timestamp) {
         this.id = id;
