@@ -11,15 +11,5 @@ import week6.java.cogip.services.CompanyService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/companies")
 public class CompanyController {
-
-  @Autowired
-  private CompanyService companyService;
-  
-  @GetMapping
-  public ResponseEntity<List<Company>> getAllCompanies() {
-    return ResponseEntity.ok(companyService.getAllCompanies());
-  }
-  
 }
