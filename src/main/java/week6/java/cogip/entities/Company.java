@@ -1,27 +1,45 @@
 package week6.java.cogip.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "company")
 public class Company {
-    @Id
-    private short id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private short id;
+	
+	@Column(name = "name")
     private String name;
+	
+	@Column(name ="country")
     private String country;
-    private String vat;
+	
+	@Column(name = "vat")
+    private String tva;
+	
+	@Column(name= "type")
     private String type;
+	
+	@CreationTimestamp
+	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 
-    public Company() {
-
-    }
 
     public Company(short id, String name, String country, String tva, String type, String timestamp) {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.vat = tva;
+        this.tva = tva;
         this.type = type;
         this.timestamp = timestamp;
     }
@@ -50,12 +68,12 @@ public class Company {
         this.country = country;
     }
 
-    public String getVat() {
-        return vat;
+    public String getTva() {
+        return tva;
     }
 
-    public void setVat(String tva) {
-        this.vat = tva;
+    public void setTva(String tva) {
+        this.tva = tva;
     }
 
     public String getType() {
