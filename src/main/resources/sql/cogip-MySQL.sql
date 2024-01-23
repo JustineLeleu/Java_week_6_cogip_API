@@ -31,7 +31,7 @@ USE `cogip`;
 
 DROP TABLE IF EXISTS `company`;
 CREATE TABLE IF NOT EXISTS`company` (
-  `id` int NOT NULL,
+  `id` int auto_increment PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `vat` varchar(255) NOT NULL,
@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `lastname` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL,
   `contact_company_id` int DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `contact_company_id` (`contact_company_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -68,11 +68,15 @@ CREATE TABLE IF NOT EXISTS `contact` (
 
 DROP TABLE IF EXISTS `invoice`;
 CREATE TABLE IF NOT EXISTS `invoice` (
-  `id` int DEFAULT NULL,
-  `timestamp` text,
-  `invoice_company_id` int DEFAULT NULL,
-  `invoice_contact_id` int DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int auto_increment PRIMARY KEY,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `invoice_company_id` int,
+  `invoice_contact_id` int,
+  INDEX `invoiceCompanyId` (`invoice_company_id`),
+  INDEX `invoiceContactId` (`invoice_contact_id`),
+  CONSTRAINT `invcompid` FOREIGN KEY (`invoice_company_id`) REFERENCES `company`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `invconid` FOREIGN KEY (`invoice_contact_id`) REFERENCES `contact`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -86,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
 -- ---------------------------------------------------------
@@ -100,19 +104,9 @@ COMMIT;
 -- Index pour la table `company`
 --
 ALTER TABLE `company`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `vat` (`vat`);
 
---
--- AUTO_INCREMENT pour les tables déchargées
---
 
---
--- AUTO_INCREMENT pour la table `company`
---
-ALTER TABLE `company`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
