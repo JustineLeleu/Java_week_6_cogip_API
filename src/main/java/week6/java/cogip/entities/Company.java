@@ -34,6 +34,9 @@ public class Company {
 	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 
+    public Company() {
+
+    }
 
     public Company(short id, String name, String country, String tva, String type, String timestamp) {
         this.id = id;

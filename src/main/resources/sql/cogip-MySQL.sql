@@ -49,13 +49,15 @@ CREATE TABLE IF NOT EXISTS`company` (
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int DEFAULT NULL,
-  `firstname` tinytext,
-  `lastname` tinytext,
-  `phone` tinytext,
-  `email` tinytext,
-  `timestamp` text,
-  `contact_company_id` int DEFAULT NULL
+  `id` int NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `contact_company_id` int DEFAULT NULL,
+  UNIQUE KEY `id` (`id`),
+  KEY `contact_company_id` (`contact_company_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

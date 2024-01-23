@@ -1,40 +1,41 @@
 package week6.java.cogip.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Contact")
 public class Contact {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private short id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "email")
     private String email;
+    @Column(name = "timestamp")
     private String timestamp;
-    private short contactCompanyId;
+    @ManyToOne
+    @JoinColumn(name = "contact_company_id")
+    private Company company;
 
     public Contact() {
 
     }
 
-    public Contact(short id, String firstName, String lastName, String phone, String email, String timestamp, short contactCompanyId) {
-        this.id = id;
+    public Contact(String firstName, String lastName, String phone, String email, String timestamp) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
         this.timestamp = timestamp;
-        this.contactCompanyId = contactCompanyId;
-    }
-
-    public short getId() {
-        return id;
-    }
-
-    public void setId(short id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -77,11 +78,11 @@ public class Contact {
         this.timestamp = timestamp;
     }
 
-    public short getContactCompanyId() {
-        return contactCompanyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setContactCompanyId(short contactCompanyId) {
-        this.contactCompanyId = contactCompanyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
