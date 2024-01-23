@@ -4,6 +4,9 @@ package week6.java.cogip.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Contact")
 public class Contact {
@@ -26,6 +29,13 @@ public class Contact {
     @ManyToOne
     @JoinColumn(name = "contact_company_id")
     private Company company;
+
+    @OneToMany(
+            mappedBy = "invoice",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Invoice> invoices = new ArrayList<>();
 
     public Contact() {
 
