@@ -7,5 +7,4 @@ import week6.java.cogip.entities.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Short> {
-
 }

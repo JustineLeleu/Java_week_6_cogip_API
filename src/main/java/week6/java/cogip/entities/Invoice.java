@@ -31,6 +31,33 @@ public class Invoice {
     		)
     @JoinColumn(name= "invoice_contact_id")
     private Contact contact;
+    
+    public Invoice(short id, String timestamp, Company company, Contact contact) {
+        this.id = id;
+        this.timestamp = timestamp;
+        this.company = company;
+        this.contact = contact;
+    }
+
+	public Invoice() {
+
+	}
+	
+	public short getId() {
+        return id;
+    }
+
+    public void setId(short id) {
+        this.id = id;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public Company getCompany() {
 		return company;
@@ -47,28 +74,5 @@ public class Invoice {
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-
-	public Invoice(short id, String timestamp, Company company, Contact contact) {
-        this.id = id;
-        this.timestamp = timestamp;
-        this.company = company;
-        this.contact = contact;
-    }
-
-    public short getId() {
-        return id;
-    }
-
-    public void setId(short id) {
-        this.id = id;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
 
 }

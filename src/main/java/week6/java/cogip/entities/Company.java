@@ -48,6 +48,9 @@ public class Company {
 			  )
 	private List<Invoice> invoices = new ArrayList<>();
 
+    public Company() {
+
+    }
 
     public Company(short id, String name, String country, String tva, String type, String timestamp) {
         this.id = id;
