@@ -1,13 +1,19 @@
 package week6.java.cogip.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Invoice {
+    @Id
     private short id;
     private String timestamp;
     private short invoiceCompanyId;
     private short invoiceContactId;
+
+    public Invoice() {
+
+    }
 
     public Invoice(short id, String timestamp, short invoiceCompanyId, short invoiceContactId) {
         this.id = id;
