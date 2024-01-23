@@ -9,7 +9,7 @@ public class Company {
     private short id;
     private String name;
     private String country;
-    private String tva;
+    private String vat;
     private String type;
     private String timestamp;
 
@@ -21,7 +21,7 @@ public class Company {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.tva = tva;
+        this.vat = tva;
         this.type = type;
         this.timestamp = timestamp;
     }
@@ -50,12 +50,12 @@ public class Company {
         this.country = country;
     }
 
-    public String getTva() {
-        return tva;
+    public String getVat() {
+        return vat;
     }
 
-    public void setTva(String tva) {
-        this.tva = tva;
+    public void setVat(String tva) {
+        this.vat = tva;
     }
 
     public String getType() {
