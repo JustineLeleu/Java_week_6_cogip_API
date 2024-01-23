@@ -1,28 +1,49 @@
 package week6.java.cogip.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Invoice {
+	
     @Id
-    private short id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private short id;
+    
+    @Column(name = "timestamp")
     private String timestamp;
-    private short invoiceCompanyId;
-    private short invoiceContactId;
-
-    public Invoice() {
-
-    }
-
-    public Invoice(short id, String timestamp, short invoiceCompanyId, short invoiceContactId) {
+    
+    @ManyToOne(
+    		cascade = CascadeType.ALL
+    		)
+    @JoinColumn(name= "invoice_company_id")
+    private Company company;
+    
+    @ManyToOne(
+    		cascade = CascadeType.ALL
+    		)
+    @JoinColumn(name= "invoice_contact_id")
+    private Contact contact;
+    
+    public Invoice(short id, String timestamp, Company company, Contact contact) {
         this.id = id;
         this.timestamp = timestamp;
-        this.invoiceCompanyId = invoiceCompanyId;
-        this.invoiceContactId = invoiceContactId;
+        this.company = company;
+        this.contact = contact;
     }
 
-    public short getId() {
+	public Invoice() {
+
+	}
+	
+	public short getId() {
         return id;
     }
 
@@ -38,19 +59,20 @@ public class Invoice {
         this.timestamp = timestamp;
     }
 
-    public short getInvoiceCompanyId() {
-        return invoiceCompanyId;
-    }
+    public Company getCompany() {
+		return company;
+	}
 
-    public void setInvoiceCompanyId(short invoiceCompanyId) {
-        this.invoiceCompanyId = invoiceCompanyId;
-    }
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
-    public short getInvoiceContactId() {
-        return invoiceContactId;
-    }
+	public Contact getContact() {
+		return contact;
+	}
 
-    public void setInvoiceContactId(short invoiceContactId) {
-        this.invoiceContactId = invoiceContactId;
-    }
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
 }

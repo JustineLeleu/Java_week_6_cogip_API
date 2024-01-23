@@ -1,0 +1,34 @@
+company
+-
+id PK int 
+name varchar
+country varchar
+vat UNIQUE varchar
+type varchar
+timestamp timestamp
+
+
+contact
+-
+id PK int
+firstname varchar
+lastname varchar
+phone varchar
+email varchar
+timestamp timestamp
+contact_company_id int FK >- company.id
+
+invoice
+-
+id PK int
+timestamp timestamp
+invoice_company_id int FK >- company.id
+invoice_contact_id int FK >- contact.id
+
+user
+-
+id PK int
+username varchar
+password varchar
+role
+varchar
