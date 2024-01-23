@@ -31,7 +31,7 @@ public class Company {
     private String type;
 	
 	@CreationTimestamp
-	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
+	@Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 
     public Company() {

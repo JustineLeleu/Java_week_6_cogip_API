@@ -7,5 +7,4 @@ import week6.java.cogip.entities.Contact;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Short> {
-
 }

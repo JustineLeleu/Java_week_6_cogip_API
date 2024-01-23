@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS`company` (
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int NOT NULL,
+  `id` int auto_increment PRIMARY KEY,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
