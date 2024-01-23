@@ -44,9 +44,8 @@ public class Company {
 	@OneToMany(
 			   mappedBy = "invoice",
 			   cascade = CascadeType.ALL, 
-			   orphanRemoval = true, 
-			   fetch = FetchType.EAGER)
-	@JoinColumn(name = "invoice_company_id")
+			   orphanRemoval = true 
+			  )
 	private List<Invoice> invoices = new ArrayList<>();
 
 

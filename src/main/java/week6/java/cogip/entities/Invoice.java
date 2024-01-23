@@ -1,19 +1,58 @@
 package week6.java.cogip.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Invoice {
-    private short id;
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private short id;
+    
+    @Column(name = "timestamp")
     private String timestamp;
-    private short invoiceCompanyId;
-    private short invoiceContactId;
+    
+    @ManyToOne(
+    		cascade = CascadeType.ALL
+    		)
+    @JoinColumn(name= "invoice_company_id")
+    private Company company;
+    
+    @ManyToOne(
+    		cascade = CascadeType.ALL
+    		)
+    @JoinColumn(name= "invoice_contact_id")
+    private Contact contact;
 
-    public Invoice(short id, String timestamp, short invoiceCompanyId, short invoiceContactId) {
+    public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public Invoice(short id, String timestamp, Company company, Contact contact) {
         this.id = id;
         this.timestamp = timestamp;
-        this.invoiceCompanyId = invoiceCompanyId;
-        this.invoiceContactId = invoiceContactId;
+        this.company = company;
+        this.contact = contact;
     }
 
     public short getId() {
@@ -32,19 +71,4 @@ public class Invoice {
         this.timestamp = timestamp;
     }
 
-    public short getInvoiceCompanyId() {
-        return invoiceCompanyId;
-    }
-
-    public void setInvoiceCompanyId(short invoiceCompanyId) {
-        this.invoiceCompanyId = invoiceCompanyId;
-    }
-
-    public short getInvoiceContactId() {
-        return invoiceContactId;
-    }
-
-    public void setInvoiceContactId(short invoiceContactId) {
-        this.invoiceContactId = invoiceContactId;
-    }
 }
