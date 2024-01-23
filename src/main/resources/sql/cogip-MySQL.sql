@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS`company` (
   `name` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `vat` varchar(255) NOT NULL,
-  `type` text NOT NULL,
+  `type` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

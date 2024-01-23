@@ -1,12 +1,19 @@
 package week6.java.cogip.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +40,14 @@ public class Company {
 	@CreationTimestamp
 	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
+	
+	@OneToMany(
+			   mappedBy = "invoice",
+			   cascade = CascadeType.ALL, 
+			   orphanRemoval = true, 
+			   fetch = FetchType.EAGER)
+	@JoinColumn(name = "invoice_company_id")
+	private List<Invoice> invoices = new ArrayList<>();
 
 
     public Company(short id, String name, String country, String tva, String type, String timestamp) {
