@@ -34,4 +34,9 @@ public class CompanyService {
 		return companyRepository.findById(companyId);
 	}
 
+	public Company addNewCompany(Company company) {
+		return companyRepository.save(company);
+		
+	}
+
 }
