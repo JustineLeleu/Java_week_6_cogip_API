@@ -71,7 +71,7 @@ VALUES
   ('Loulou', 'Dupont', '0478888888', 'loulou@dupont.com', 1),
   ('Toto', 'Dumarais', '0473456789', 'toto@dumarais.com', 1),
   ('Jaja', 'Dulak', '0474578962', 'jaja@dupont.com', 2);
- 
+
 
 -- --------------------------------------------------------
 

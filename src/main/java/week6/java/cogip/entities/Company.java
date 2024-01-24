@@ -53,6 +53,13 @@ public class Company {
 			  )
 	private List<Invoice> invoices = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "company",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Contact> contacts = new ArrayList<>();
+
     public Company() {
 
     }

@@ -2,6 +2,10 @@ package week6.java.cogip.entities;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Contact")
@@ -10,7 +14,7 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private short id;
+    private Short id;
     @Column(name = "firstname")
     private String firstName;
     @Column(name = "lastname")
@@ -19,23 +23,39 @@ public class Contact {
     private String phone;
     @Column(name = "email")
     private String email;
-    @Column(name = "timestamp")
+    @CreationTimestamp
+    @Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
     @ManyToOne
     @JoinColumn(name = "contact_company_id")
     private Company company;
 
+    @OneToMany(
+            mappedBy = "contact",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Invoice> invoices = new ArrayList<>();
+
     public Contact() {
 
     }
 
-    public Contact(String firstName, String lastName, String phone, String email, String timestamp) {
+    public Contact(String firstName, String lastName, String phone, String email, Company company) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
-        this.timestamp = timestamp;
+        this.company = company;
+    }
+
+    public Short getId() {
+        return id;
+    }
+
+    public void setId(Short id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -84,5 +104,13 @@ public class Contact {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }
