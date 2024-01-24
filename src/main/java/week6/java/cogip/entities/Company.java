@@ -42,16 +42,18 @@ public class Company {
     private String timestamp;
 	
 	@OneToMany(
-			   mappedBy = "company",
-			   cascade = CascadeType.ALL,
-			   orphanRemoval = true
+            mappedBy = "company",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
 			  )
 	private List<Invoice> invoices = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "company",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private List<Contact> contacts = new ArrayList<>();
 
@@ -115,4 +117,20 @@ public class Company {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+//    public List<Contact> getContacts() {
+//        return contacts;
+//    }
+//
+//    public void setContacts(List<Contact> contacts) {
+//        this.contacts = contacts;
+//    }
 }

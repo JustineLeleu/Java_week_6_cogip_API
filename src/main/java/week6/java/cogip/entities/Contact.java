@@ -33,7 +33,8 @@ public class Contact {
     @OneToMany(
             mappedBy = "contact",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private List<Invoice> invoices = new ArrayList<>();
 
