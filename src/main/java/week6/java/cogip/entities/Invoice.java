@@ -25,7 +25,10 @@ public class Invoice {
     private String timestamp;
     
     @ManyToOne(
-    		cascade = CascadeType.ALL
+    		cascade = { 
+					CascadeType.PERSIST, 
+					CascadeType.MERGE 
+					} 
     		)
     @JoinColumn(name= "invoice_company_id")
     private Company company;

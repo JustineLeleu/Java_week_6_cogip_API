@@ -34,9 +34,13 @@ public class CompanyService {
 		return companyRepository.findById(companyId);
 	}
 
-	public Company addNewCompany(Company company) {
+	public Company saveCompany(Company company) {
 		return companyRepository.save(company);
 		
+	}
+
+	public void delete(Short companyId) {
+		companyRepository.deleteById(companyId);
 	}
 
 }
