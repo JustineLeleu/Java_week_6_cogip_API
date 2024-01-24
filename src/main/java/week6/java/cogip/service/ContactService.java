@@ -1,10 +1,15 @@
 package week6.java.cogip.service;
 
+import org.hibernate.exception.DataException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.Contact;
 import week6.java.cogip.repository.ContactRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ContactService {
@@ -20,8 +25,7 @@ public class ContactService {
     }
 
     public Contact getContactById(Short id){
-        System.out.println(contactRepository.existsById(id));
-        return contactRepository.findById(id).orElseThrow();
+        return contactRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No contact by ID: " + id));
     }
 
     public void createContact(Contact contact){
@@ -29,7 +33,8 @@ public class ContactService {
     }
 
     public void deleteContact(short id){
-        contactRepository.deleteById(id);
+        if (contactRepository.existsById(id)) contactRepository.deleteById(id);
+        else throw new NoSuchElementException();
     }
 
 }

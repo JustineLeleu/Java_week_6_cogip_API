@@ -42,11 +42,18 @@ public class Company {
     private String timestamp;
 	
 	@OneToMany(
-			   mappedBy = "invoice",
-			   cascade = CascadeType.ALL, 
-			   orphanRemoval = true 
+			   mappedBy = "company",
+			   cascade = CascadeType.ALL,
+			   orphanRemoval = true
 			  )
 	private List<Invoice> invoices = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "company",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Contact> contacts = new ArrayList<>();
 
     public Company() {
 

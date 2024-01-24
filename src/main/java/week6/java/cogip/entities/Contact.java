@@ -31,7 +31,7 @@ public class Contact {
     private Company company;
 
     @OneToMany(
-            mappedBy = "invoice",
+            mappedBy = "contact",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
@@ -104,5 +104,13 @@ public class Contact {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }
