@@ -45,7 +45,7 @@ public class UserController {
   }
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateUser(@PathVariable Short id,
-                                            @RequestParam(required = false) String username,
+                                           @RequestParam(required = false) String username,
                                            @RequestParam(required = false) String password,
                                            @RequestParam(required = false) String role) {
     Optional<User> optionalUser = userService.getUser(id);
