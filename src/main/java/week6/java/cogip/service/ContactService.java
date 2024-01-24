@@ -34,7 +34,7 @@ public class ContactService {
 
     public void deleteContact(short id){
         if (contactRepository.existsById(id)) contactRepository.deleteById(id);
-        else throw new NoSuchElementException();
+        else throw new NoSuchElementException("No contact by ID: " + id);
     }
 
 }
