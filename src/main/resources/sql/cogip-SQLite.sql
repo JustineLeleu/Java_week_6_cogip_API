@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS 'company' (
   'country' VARCHAR(255) NOT NULL,
   'vat' VARCHAR(255) UNIQUE NOT NULL,
   'type' VARCHAR(255) NOT NULL CHECK ('type' = "provider" OR 'type' = "client"),
-  'timestamp' TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  'timestamp' TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
 );
 
 /*
