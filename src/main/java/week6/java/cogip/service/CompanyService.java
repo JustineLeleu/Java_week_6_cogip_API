@@ -1,5 +1,7 @@
 package week6.java.cogip.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,10 @@ public class CompanyService {
 
 	public Iterable<Company> getCompanies() {
 		return companyRepository.findAll();
+	}
+
+	public Optional<Company> getCompany(Short companyId) {
+		return companyRepository.findById(companyId);
 	}
 
 }

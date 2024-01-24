@@ -37,14 +37,6 @@ public class Company {
 	
 	@Column(name = "vat")
     private String tva;
-	
-	public List<Invoice> getInvoices() {
-		return invoices;
-	}
-
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
-	}
 
 	@Column(name= "type")
     private String type;
@@ -121,4 +113,12 @@ public class Company {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+    
+    public List<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
+	}
 }
