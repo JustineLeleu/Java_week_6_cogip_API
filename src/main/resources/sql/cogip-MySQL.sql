@@ -34,12 +34,18 @@ CREATE TABLE IF NOT EXISTS`company` (
   `id` int auto_increment PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
-  `vat` varchar(255) NOT NULL,
+  `vat` varchar(255) NOT NULL UNIQUE,
   `type` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
+INSERT INTO company
+  (name, country, vat, type)
+VALUES
+  ('BeCode', 'Belgium', 1234567890, 'client'),
+  ('ACME', 'United-States', 1234567891, 'provider'),
+  ('A6K', 'Belgium', 1234567892, 'client'),
+  ('Dubalais', 'France', 1234567893, 'provider');
 
 -- --------------------------------------------------------
 
@@ -49,16 +55,23 @@ CREATE TABLE IF NOT EXISTS`company` (
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int NOT NULL,
+  `id` int auto_increment PRIMARY KEY,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contact_company_id` int DEFAULT NULL,
-  UNIQUE KEY `id` (`id`),
   KEY `contact_company_id` (`contact_company_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO contact
+  (firstname, lastname, phone, email, contact_company_id)
+VALUES
+  ('Loulou', 'Dupont', '0478888888', 'loulou@dupont.com', 1),
+  ('Toto', 'Dumarais', '0473456789', 'toto@dumarais.com', 1),
+  ('Jaja', 'Dulak', '0474578962', 'jaja@dupont.com', 2);
+ 
 
 -- --------------------------------------------------------
 
@@ -78,6 +91,14 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   CONSTRAINT `invconid` FOREIGN KEY (`invoice_contact_id`) REFERENCES `contact`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO invoice
+  (invoice_company_id, invoice_contact_id)
+VALUES
+  (1,1),
+  (1,2),
+  (1,1);
+  
+
 -- --------------------------------------------------------
 
 --
@@ -94,17 +115,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 COMMIT;
 
 -- ---------------------------------------------------------
-
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `company`
---
-ALTER TABLE `company`
-  ADD UNIQUE KEY `vat` (`vat`);
 
 
 

@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,12 +16,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "company")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Company {
 	
 	@Id
@@ -33,18 +37,19 @@ public class Company {
 	
 	@Column(name = "vat")
     private String tva;
-	
+
 	@Column(name= "type")
     private String type;
 	
 	@CreationTimestamp
-	@Column(name = "timeStamp", nullable = false, updatable = false, insertable = false)
+	@Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 	
 	@OneToMany(
-			   mappedBy = "invoice",
+			   mappedBy = "company",
 			   cascade = CascadeType.ALL, 
-			   orphanRemoval = true 
+			   orphanRemoval = true,
+			   fetch = FetchType.EAGER
 			  )
 	private List<Invoice> invoices = new ArrayList<>();
 
@@ -108,4 +113,12 @@ public class Company {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+    
+    public List<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
+	}
 }
