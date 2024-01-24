@@ -34,16 +34,19 @@ public class CompanyController {
 		this.companyService = companyService;
 	}
 
+	// GET method to get all companies
 	@GetMapping
 	public ResponseEntity<Object> listCompanies(){
 		return new ResponseEntity<>(companyService.getCompanies(), HttpStatus.OK);
 	}
 	
+	// GET method to get a company based on the id
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> company(@PathVariable("id") Short companyId){
 		return new ResponseEntity<>(companyService.getCompany(companyId), HttpStatus.OK);
 	}
 	
+	// POST method to add a new company with name, country, tva and type (client or provider)
 	@PostMapping
 	public ResponseEntity<Integer> create(@RequestBody Company company) throws Exception {
 		if ((company.getName() == null) || (company.getCountry() == null) || (company.getTva() == null) || (company.getType() == null)){
@@ -55,6 +58,7 @@ public class CompanyController {
 		}
 	}
 	
+	// PUT method to update a company with name, country, tva and type (client or provider)
 	@PutMapping
 	public ResponseEntity<Integer> update(@RequestBody Company company) throws Exception {
 		if ((company.getName() == null) || (company.getCountry() == null) || (company.getTva() == null) || (company.getType() == null)){
@@ -66,6 +70,7 @@ public class CompanyController {
 		}
 	}
 	
+	// DELETE method to remove a company based on the id
 	@DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteDoctor(@PathVariable Short id){
         companyService.delete(id);
