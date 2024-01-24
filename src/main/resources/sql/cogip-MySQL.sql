@@ -30,14 +30,16 @@ USE `cogip`;
 --
 
 DROP TABLE IF EXISTS `company`;
-CREATE TABLE IF NOT EXISTS `company` (
-  `id` int DEFAULT NULL,
-  `name` tinytext,
-  `country` tinytext,
-  `vat` tinytext,
-  `type` tinytext,
-  `timestamp` text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS`company` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `vat` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 
 -- --------------------------------------------------------
 
@@ -47,13 +49,15 @@ CREATE TABLE IF NOT EXISTS `company` (
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int DEFAULT NULL,
-  `firstname` tinytext,
-  `lastname` tinytext,
-  `phone` tinytext,
-  `email` tinytext,
-  `timestamp` text,
-  `contact_company_id` int DEFAULT NULL
+  `id` int auto_increment PRIMARY KEY,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `contact_company_id` int DEFAULT NULL,
+  UNIQUE KEY `id` (`id`),
+  FOREIGN KEY(contact_company_id) REFERENCES company(id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -83,6 +87,31 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) DEFAULT NULL,
   `role` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
+
+-- ---------------------------------------------------------
+
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `vat` (`vat`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `company`
+--
+ALTER TABLE `company`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
