@@ -46,7 +46,7 @@ public class Invoice {
         this.id = id;
         this.timestamp = timestamp;
         this.company = company;
-        this.contact = contact;
+        //this.contact = contact;
     }
 
 	public Invoice() {

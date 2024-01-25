@@ -29,8 +29,14 @@ public class ContactService {
     }
 
     public void deleteContact(short id){
-        if (contactRepository.existsById(id)) contactRepository.deleteById(id);
+        if (contactRepository.existsById(id)){
+            Contact contact = contactRepository.findById(id).orElseThrow();
+            contact.getCompany().getContacts().remove(contact);
+            contactRepository.deleteById(id);
+        }
         else throw new NoSuchElementException("No contact by ID: " + id);
+
+        if (contactRepository.existsById(id)) throw new NoSuchElementException("Failed to delete contact");
     }
 
 }
