@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `cogip`
 --
-CREATE DATABASE IF NOT EXISTS `cogip` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `cogip`;
+CREATE DATABASE IF NOT EXISTS `cogip4` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `cogip4`;
 
 -- --------------------------------------------------------
 
@@ -35,14 +35,14 @@ CREATE TABLE IF NOT EXISTS`company` (
   `name` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `vat` varchar(255) NOT NULL UNIQUE,
-  `type` varchar(255) NOT NULL,
+  `type` ENUM('client','provider'),
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO company
   (name, country, vat, type)
 VALUES
-  ('BeCode', 'Belgium', 1234567890, 'client'),
+  ('BeCode', 'Belgium', 1234567890, 'cli'),
   ('ACME', 'United-States', 1234567891, 'provider'),
   ('A6K', 'Belgium', 1234567892, 'client'),
   ('Dubalais', 'France', 1234567893, 'provider');
