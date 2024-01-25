@@ -36,7 +36,7 @@ public class Contact {
     private Company company;
 
     @OneToMany(
-            mappedBy = "company",
+            mappedBy = "contact",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER

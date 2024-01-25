@@ -18,12 +18,10 @@ import java.util.NoSuchElementException;
 public class ContactController {
     private final ContactService contactService;
     private final CompanyService companyService;
-    //private final CompanyRepository companyRepository;
 
     public ContactController(ContactService contactService, CompanyService companyService){
         this.contactService = contactService;
         this.companyService = companyService;
-        //this.companyRepository = companyRepository;
     }
 
     @GetMapping
