@@ -47,8 +47,8 @@ public class UserController {
     try {
       User user = userDto.dtoUser(new User());
       user.setRole(role);
-      userService.createUser(user);
-      return ResponseEntity.ok(user);
+      User createdUser = userService.createUser(user);
+      return ResponseEntity.ok(createdUser);
     }
     catch (ResponseStatusException e) {
       return new ResponseEntity<>("User can't be created", HttpStatus.NOT_FOUND);
