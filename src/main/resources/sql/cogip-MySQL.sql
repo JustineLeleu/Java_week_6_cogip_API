@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `email` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `contact_company_id` int DEFAULT NULL,
-  KEY `contact_company_id` (`contact_company_id`)
+  FOREIGN KEY (contact_company_id) REFERENCES company (id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO contact
