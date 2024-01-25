@@ -1,6 +1,5 @@
 package week6.java.cogip.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.Company;
 import week6.java.cogip.entities.Contact;
@@ -10,7 +9,6 @@ import week6.java.cogip.repository.ContactRepository;
 import week6.java.cogip.repository.InvoiceRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
