@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+import week6.java.cogip.dtos.CompanyDto;
 import week6.java.cogip.entities.Company;
 import week6.java.cogip.service.CompanyService;
 
@@ -48,26 +50,18 @@ public class CompanyController {
 	
 	// POST method to add a new company with name, country, tva and type (client or provider)
 	@PostMapping
-	public ResponseEntity<Integer> create(@RequestBody Company company) throws Exception {
-		if ((company.getName() == null) || (company.getCountry() == null) || (company.getTva() == null) || (company.getType() == null)){
-			throw new Exception("Post : some fields are null");
-		} 
-		else {
-			companyService.saveCompany(company);
-			return new ResponseEntity<Integer>((Integer) company.getId(), HttpStatus.CREATED);
-		}
+	public ResponseEntity<Object> create(@RequestBody @Valid CompanyDto companyDto) {
+		Company company = companyService.saveCompany(companyDto.toCompany());
+		return new ResponseEntity<>(company, HttpStatus.CREATED);
 	}
 	
-	// PUT method to update a company with name, country, tva and type (client or provider)
-	@PutMapping
-	public ResponseEntity<Integer> update(@RequestBody Company company) throws Exception {
-		if ((company.getName() == null) || (company.getCountry() == null) || (company.getTva() == null) || (company.getType() == null)){
-			throw new Exception("Update : some fields are null");
-		} 
-		else {
-			companyService.saveCompany(company);
-			return new ResponseEntity<Integer>((Integer) company.getId(), HttpStatus.CREATED);
-		}
+	// PUT method to update a company with the name, country, tva and type (client or provider) in the body
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> update(@PathVariable Short id, @RequestBody @Valid CompanyDto companyDto) {
+		Company company = companyDto.toCompany();
+		company.setId(id);
+		company = companyService.saveCompany(company);
+		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	
 	// DELETE method to remove a company based on the id
