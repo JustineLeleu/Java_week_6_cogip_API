@@ -8,20 +8,22 @@ import week6.java.cogip.dtos.ContactDto;
 import week6.java.cogip.dtos.ContactOptionalDto;
 import week6.java.cogip.entities.Company;
 import week6.java.cogip.entities.Contact;
-import week6.java.cogip.repository.CompanyRepository;
+import week6.java.cogip.service.CompanyService;
 import week6.java.cogip.service.ContactService;
+
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/contact")
 public class ContactController {
     private final ContactService contactService;
-    //private final CompanyService companyService;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
+    //private final CompanyRepository companyRepository;
 
-    public ContactController(ContactService contactService, CompanyRepository companyRepository){
+    public ContactController(ContactService contactService, CompanyService companyService){
         this.contactService = contactService;
-        //this.companyService = companyService;
-        this.companyRepository = companyRepository;
+        this.companyService = companyService;
+        //this.companyRepository = companyRepository;
     }
 
     @GetMapping
@@ -39,8 +41,9 @@ public class ContactController {
     public ResponseEntity<Object> createContact(
             @Valid @RequestBody ContactDto contactDto,
             @RequestParam Short companyId){
-        Company company = companyRepository.findById(companyId).orElseThrow();
         Contact contact = contactDto.toContact();
+        Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
+        System.out.println(company);
         contact.setCompany(company);
         contactService.createContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -53,7 +56,8 @@ public class ContactController {
             @RequestParam (required = false) Short companyId){
         Contact contact = contactService.getContactById(id);
         if (companyId != null){
-            // get company id
+            Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
+            contact.setCompany(company);
         }
         contactOptionalDto.toContact(contact);
         contactService.createContact(contact);

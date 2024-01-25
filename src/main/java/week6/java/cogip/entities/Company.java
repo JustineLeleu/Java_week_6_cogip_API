@@ -57,7 +57,8 @@ public class Company {
     @OneToMany(
             mappedBy = "company",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private List<Contact> contacts = new ArrayList<>();
 
@@ -129,4 +130,12 @@ public class Company {
 	public void setInvoices(List<Invoice> invoices) {
 		this.invoices = invoices;
 	}
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
 }

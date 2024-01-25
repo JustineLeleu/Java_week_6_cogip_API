@@ -26,12 +26,17 @@ public class Contact {
     @CreationTimestamp
     @Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
-    @ManyToOne
+    @ManyToOne(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
     @JoinColumn(name = "contact_company_id")
     private Company company;
 
     @OneToMany(
-            mappedBy = "contact",
+            mappedBy = "company",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER

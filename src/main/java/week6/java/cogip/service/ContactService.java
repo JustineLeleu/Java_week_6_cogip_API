@@ -1,9 +1,5 @@
 package week6.java.cogip.service;
 
-import org.hibernate.exception.DataException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.Contact;
 import week6.java.cogip.repository.ContactRepository;

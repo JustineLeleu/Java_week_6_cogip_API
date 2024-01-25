@@ -34,8 +34,11 @@ public class Invoice {
     private Company company;
     
     @ManyToOne(
-    		cascade = CascadeType.ALL
-    		)
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
     @JoinColumn(name= "invoice_contact_id")
     private Contact contact;
     
