@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Contact")
@@ -114,4 +115,5 @@ public class Contact {
     public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
     }
+    
 }
