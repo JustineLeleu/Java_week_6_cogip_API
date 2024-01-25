@@ -20,9 +20,9 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private short id;
-    
-    @Column(name = "timestamp")
-    private String timestamp;
+  
+  @Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
+  private String timestamp;
     
     @ManyToOne(
     		cascade = { 
