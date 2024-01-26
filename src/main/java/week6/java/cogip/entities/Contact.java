@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Contact entity connected to the database contact table
 @Setter
 @Getter
 @Entity

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.HashMap;
 import java.util.Map;
 
+// Tests for the contact controller
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -33,6 +34,9 @@ class ContactControllerTest {
 
     static private int id;
 
+    // Test 1
+    // Create a contact and must return a status 200 created
+    // Stock the id created to use it in other tests
     @Test
     @Order(1)
     void postContactTest() throws Exception {
@@ -57,10 +61,10 @@ class ContactControllerTest {
                 .getContentAsString();
 
         id = JsonPath.parse(response).read("id");
-        System.out.println("get id");
-        System.out.println(id);
     }
 
+    // Test 2
+    // Get all contacts and must return status 200 ok
     @Test
     @Order(2)
     void getContactTest() throws Exception {
@@ -70,6 +74,9 @@ class ContactControllerTest {
                 .andReturn();
     }
 
+    // Test 3
+    // Get contact by id and must return status 200 ok
+    // Use the var id as the id to get
     @Test
     @Order(3)
     void getContactByIdTest() throws Exception {
@@ -80,6 +87,9 @@ class ContactControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // Test 4
+    // Update contact by id and must return status 200 ok
+    // Use the var id as the id to modify
     @Test
     @Order(4)
     void putContactByIdTest() throws Exception {
@@ -97,6 +107,9 @@ class ContactControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // Test 5
+    // Delete a contact by id and must return status 200 ok
+    // Use the var id as the id to delete
     @Test
     @Order(5)
     void deleteContactByIdTest() throws Exception {

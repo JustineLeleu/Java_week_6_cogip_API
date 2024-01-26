@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import week6.java.cogip.entities.Contact;
 
+// DTO used as request body for the put method in the contact controller
+// Used to validate the data and return corresponding error message
 @Data
 public class ContactOptionalDto {
 
