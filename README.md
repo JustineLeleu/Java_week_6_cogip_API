@@ -4,7 +4,7 @@ This API is built using Java, MySQL, Spring, and Maven.
 
 ## All dependencies
 
-This API use the following dependencies: Junit, Spring Boot, Spring Security, Spring Data JPA, MySQL Driver, Lombok, and Spring Web.
+This API use the following dependencies: Junit, Spring Boot, Spring Security, Spring Data JPA, MySQL Driver, Lombok, and Spring Web, Jakarta Validation API, and Hibernate Validator.
 
 ## Endpoint documentation
 
