@@ -6,7 +6,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,13 +53,22 @@ class UserTest {
     this.mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonRequestBody)
-                    .param("role", "USER")
+//                    .param("role", "USER/MODERATOR/ADMIN")
             )
             .andExpect(status().isOk());
   }
   
   @Test
   @Order(3)
+  void GetByIdTest() throws Exception {
+    this.mockMvc.perform(MockMvcRequestBuilders.get("/api/user/" + id)
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk());
+  }
+  
+  @Test
+  @Order(4)
   void PutTest() throws Exception {
     Map<String, String> requestBody = new HashMap<>();
     requestBody.put("username", "Justine");
@@ -77,7 +85,7 @@ class UserTest {
   }
   
   @Test
-  @Order(4)
+  @Order(5)
   void DeleteTest() throws Exception {
     this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/user/" + id)
                     .contentType(MediaType.APPLICATION_JSON)
