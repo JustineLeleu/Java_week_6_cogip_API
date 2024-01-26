@@ -1,5 +1,6 @@
 package week6.java.cogip.controllers;
 
+// All the imports needed for the controller
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
