@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Setter
 @Getter
@@ -65,5 +66,5 @@ public class Contact {
         this.email = email;
         this.company = company;
     }
-
+    
 }

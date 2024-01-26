@@ -1,12 +1,12 @@
 package week6.java.cogip.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import week6.java.cogip.entities.Company;
 import week6.java.cogip.repository.CompanyRepository;
+
+import java.util.Optional;
 
 @Service
 public class CompanyService {
