@@ -44,7 +44,7 @@ public class ContactController {
         System.out.println(company);
         contact.setCompany(company);
         contactService.createContact(contact);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(contact, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
