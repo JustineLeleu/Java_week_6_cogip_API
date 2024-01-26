@@ -1,4 +1,4 @@
-package week6.java.cogip;
+package week6.java.cogip.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;

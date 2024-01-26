@@ -1,4 +1,4 @@
-package week6.java.cogip;
+package week6.java.cogip.controllers;
 
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.MethodOrderer;
