@@ -40,6 +40,9 @@ public class InvoiceService {
   }
   
   public void deleteInvoice(Short id) {
+    Invoice invoice = invoiceRepository.findById(id).orElseThrow();
+    invoice.getContact().getInvoices().remove(invoice);
+    invoice.getCompany().getInvoices().remove(invoice);
     invoiceRepository.deleteById(id);
   }
   
