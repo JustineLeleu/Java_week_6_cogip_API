@@ -28,7 +28,6 @@ import java.util.Map;
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContactControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
