@@ -16,6 +16,8 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private Short id;
     @Setter
     @Getter
@@ -38,12 +40,5 @@ public class User {
     
     }
     
-    public short getId() {
-        return id;
-    }
-
-    public void setId(short id) {
-        this.id = id;
-    }
     
 }
