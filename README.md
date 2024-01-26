@@ -1,6 +1,10 @@
 # COGIP API Documentation
 
-This API is built using Java, MySQL, Spring Boot, and Maven.
+This API is built using Java, MySQL, Spring, and Maven.
+
+## All dependencies
+
+This API use the following dependencies: Junit, Spring Boot, Spring Security, Spring Data JPA, MySQL Driver, Lombok, and Spring Web.
 
 ## Endpoint documentation
 
