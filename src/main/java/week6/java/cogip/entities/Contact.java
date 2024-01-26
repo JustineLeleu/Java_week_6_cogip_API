@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+// Contact entity connected to the database contact table
 @Setter
 @Getter
 @Entity
