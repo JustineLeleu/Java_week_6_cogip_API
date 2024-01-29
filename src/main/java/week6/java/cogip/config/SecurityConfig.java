@@ -31,14 +31,18 @@ public class SecurityConfig {
 //                        .anyRequest().authenticated())
 //                //.userDetailsService(jpaUserDetailsService)
 //                .build();
-        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        //http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(JpaUserDetailsService jpaUserDetailsService){
+    public AuthenticationManager authenticationManager(JpaUserDetailsService jpaUserDetailsService, PasswordEncoder passwordEncoder){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(jpaUserDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
+
+        //ProviderManager providerManager = new ProviderManager(authenticationProvider);
+        //providerManager.setEraseCredentialsAfterAuthentication(false);
 
         return new ProviderManager(authenticationProvider);
     }
