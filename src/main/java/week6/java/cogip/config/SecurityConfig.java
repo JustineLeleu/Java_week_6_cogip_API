@@ -7,6 +7,8 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import week6.java.cogip.service.JpaUserDetailsService;
 
@@ -21,14 +23,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         System.out.println("security");
-        return http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
-                        .anyRequest().authenticated())
-                //.userDetailsService(jpaUserDetailsService)
-                .build();
+//        return http
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/login").permitAll()
+//                        .anyRequest().authenticated())
+//                //.userDetailsService(jpaUserDetailsService)
+//                .build();
+        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        return http.build();
     }
 
     @Bean
@@ -37,6 +41,11 @@ public class SecurityConfig {
         authenticationProvider.setUserDetailsService(jpaUserDetailsService);
 
         return new ProviderManager(authenticationProvider);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 }
