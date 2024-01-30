@@ -47,8 +47,6 @@ public class Company {
 	@Column(name = "timestamp", nullable = false, updatable = false, insertable = false)
     private String timestamp;
 	
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//	@JsonIdentityReference(alwaysAsId = true)
 	@OneToMany(
 			   mappedBy = "company",
 			   cascade = CascadeType.ALL, 
@@ -58,15 +56,13 @@ public class Company {
 	@JsonIgnoreProperties(value = { "company" ,"contact"})
 	private List<Invoice> invoices = new ArrayList<>();
 
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//	@JsonIdentityReference(alwaysAsId = true)
-	@JsonIgnoreProperties(value = { "company","invoices" })
 	@OneToMany(
             mappedBy = "company",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER
     )
+	@JsonIgnoreProperties(value = { "company","invoices" })
     private List<Contact> contacts = new ArrayList<>();
 
     public Company() {

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.ArrayList;
@@ -49,8 +50,7 @@ public class Contact {
             },
             fetch = FetchType.EAGER
     )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnoreProperties(value = { "contacts","invoices" })
     @JoinColumn(name = "contact_company_id")
     private Company company;
 
@@ -60,8 +60,7 @@ public class Contact {
             orphanRemoval = true,
             fetch = FetchType.EAGER
     )
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnoreProperties(value = { "company","contact" })
     private List<Invoice> invoices = new ArrayList<>();
 
     public Contact() {

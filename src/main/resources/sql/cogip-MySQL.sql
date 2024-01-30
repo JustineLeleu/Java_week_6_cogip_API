@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `cogip`
 --
-CREATE DATABASE IF NOT EXISTS `cogip4` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `cogip4`;
+CREATE DATABASE IF NOT EXISTS `cogip` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `cogip`;
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,8 @@ INSERT INTO contact
 VALUES
   ('Loulou', 'Dupont', '0478888888', 'loulou@dupont.com', 1),
   ('Toto', 'Dumarais', '0473456789', 'toto@dumarais.com', 1),
-  ('Jaja', 'Dulak', '0474578962', 'jaja@dupont.com', 2);
+  ('Jaja', 'Dulak', '0474578962', 'jaja@dulak.com', 2),
+  ('Titi', 'Dumont', '0474511962', 'titi@dumont.com', 3);
 
 
 -- --------------------------------------------------------
@@ -96,7 +97,8 @@ INSERT INTO invoice
 VALUES
   (1,1),
   (1,2),
-  (1,1);
+  (1,1)
+  (2,3);
   
 
 -- --------------------------------------------------------
