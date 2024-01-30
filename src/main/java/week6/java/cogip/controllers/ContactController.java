@@ -3,6 +3,7 @@ package week6.java.cogip.controllers;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import week6.java.cogip.dtos.ContactDto;
 import week6.java.cogip.dtos.ContactOptionalDto;
@@ -34,6 +35,7 @@ public class ContactController {
     // Get method to get the contact by the id
     // Require a path variable id
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Object> getContactById(@PathVariable Short id){
         Contact contact = contactService.getContactById(id);
         return ResponseEntity.ok(contact);
