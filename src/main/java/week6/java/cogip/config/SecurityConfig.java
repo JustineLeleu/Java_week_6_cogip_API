@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import week6.java.cogip.service.JpaUserDetailsService;
 
+import java.nio.file.AccessDeniedException;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -24,9 +26,10 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        //.requestMatchers("/api/contact").authenticated()
+                        .requestMatchers("/api/user").permitAll()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(AccessDeniedException -> new AccessDeniedException("Access denied, you are not authenticated"))
                 .build();
     }
 

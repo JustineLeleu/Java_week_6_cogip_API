@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,12 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
         System.out.println("error");
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, List<String>>> handleAccessDeniedException(AccessDeniedException ex){
+        List<String> errors = Collections.singletonList((ex.getMessage()));
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
