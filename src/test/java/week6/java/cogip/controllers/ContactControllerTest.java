@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
@@ -67,7 +68,7 @@ class ContactControllerTest {
     @Test
     @Order(2)
     void getContactTest() throws Exception {
-        this.mockMvc.perform(get("/api/contact"))
+        this.mockMvc.perform(get("/api/contact").with(SecurityMockMvcRequestPostProcessors.user("Testing").roles("ADMIN")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
