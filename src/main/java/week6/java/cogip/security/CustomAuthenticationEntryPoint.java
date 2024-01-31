@@ -21,15 +21,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        //response.setStatus(403);
-        //response.addHeader("WWW-Authenticate", "Basic realm=\"Realm\"");
-        //System.out.println(authException.getMessage());
-        authException.printStackTrace();
         this.resolver.resolveException(request, response, null, authException);
     }
-
-//    @Override
-//    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-//        resolver.resolveException(request, response, null, exception);
-//    }
 }
