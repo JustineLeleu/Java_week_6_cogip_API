@@ -89,7 +89,7 @@ public class UserController {
       if (username != null) user.setUsername(username);
       if (password != null) user.setPassword(encoder.encode(password));
       if (role != null) user.setRole(role);
-      userService.createUser(user);
+      userService.saveUser(user);
       return ResponseEntity.ok(" User with the id : " + id + " as been updated");
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
