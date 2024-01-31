@@ -8,6 +8,7 @@ import week6.java.cogip.entities.User;
 import java.util.Collection;
 import java.util.List;
 
+// Class to set the user details with given user
 public class SecurityUser  implements UserDetails {
 
     private final User user;

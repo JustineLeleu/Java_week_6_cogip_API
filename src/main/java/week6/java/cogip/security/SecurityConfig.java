@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
+// Security configuration class to set the security of the application
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -27,22 +27,31 @@ public class SecurityConfig {
         this.customAccessDeniedHandler = customAccessDeniedHandler;
     }
 
+    // Set the security filter chain to allow the requests to the api with the right authorities
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/user").hasAuthority("ROLE_USER")
-                        .requestMatchers(HttpMethod.GET, "/api/contact").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/contact").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/company").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/company/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/company/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/user/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/user/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/invoice").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/invoice/{id}").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/invoice/{id}").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(customAuthenticationEntryPoint))
-                //.exceptionHandling(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .exceptionHandling(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .exceptionHandling(exc -> exc.accessDeniedHandler(customAccessDeniedHandler))
-                //.exceptionHandling(AccessDeniedException -> new AccessDeniedException("Access denied, you are not authenticated"))
                 .build();
     }
 
+    // Authentication manager to authenticate the user with the given user details service and password encoder
     @Bean
     public AuthenticationManager authenticationManager(JpaUserDetailsService jpaUserDetailsService, PasswordEncoder passwordEncoder){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -57,10 +66,5 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler(){
-//        return customAccessDeniedHandler;
-//    }
 
 }

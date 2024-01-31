@@ -12,6 +12,7 @@ import week6.java.cogip.dtos.UserDto;
 import week6.java.cogip.entities.User;
 import week6.java.cogip.service.UserService;
 
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 @RestController
@@ -43,8 +44,21 @@ public class UserController {
     }
   }
   @PostMapping
+  public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto){
+    try {
+      User user = userDto.dtoUser(new User());
+      user.setRole("USER");
+      User createdUser = userService.createUser(user);
+      return ResponseEntity.ok(createdUser);
+    }
+    catch (ResponseStatusException e) {
+      return new ResponseEntity<>("User can't be created", HttpStatus.NOT_FOUND);
+    }
+  }
+  @RequestMapping(value = "/", method = RequestMethod.POST, params = {"role"})
+  @PreAuthorize("hasAuthority('ROLE_ADMIN')")
   public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto,
-                                           @RequestParam(required = false, defaultValue = "USER") String role) {
+                                           @RequestParam String role){
     try {
       User user = userDto.dtoUser(new User());
       user.setRole(role);
@@ -55,6 +69,7 @@ public class UserController {
       return new ResponseEntity<>("User can't be created", HttpStatus.NOT_FOUND);
     }
   }
+
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateUser(@PathVariable Short id,
                                            @RequestParam(required = false) String username,

@@ -18,7 +18,7 @@ import week6.java.cogip.entities.Company;
 import week6.java.cogip.service.CompanyService;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/api/company")
 public class CompanyController {
 	
 	private CompanyService companyService;
