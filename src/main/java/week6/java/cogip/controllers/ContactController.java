@@ -35,7 +35,7 @@ public class ContactController {
     // Get method to get the contact by the id
     // Require a path variable id
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Object> getContactById(@PathVariable Short id){
         Contact contact = contactService.getContactById(id);
         return ResponseEntity.ok(contact);

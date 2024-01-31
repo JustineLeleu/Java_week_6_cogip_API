@@ -1,8 +1,9 @@
-package week6.java.cogip.entities;
+package week6.java.cogip.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import week6.java.cogip.entities.User;
 
 import java.util.Collection;
 import java.util.List;
