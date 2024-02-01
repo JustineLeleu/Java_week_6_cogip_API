@@ -1,5 +1,6 @@
 package week6.java.cogip.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.User;
 import week6.java.cogip.repository.UserRepository;

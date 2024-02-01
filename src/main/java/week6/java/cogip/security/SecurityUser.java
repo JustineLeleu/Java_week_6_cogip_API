@@ -53,4 +53,8 @@ public class SecurityUser  implements UserDetails {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
         return List.of(authority);
     }
+
+    public User getUser(){
+        return user;
+    }
 }

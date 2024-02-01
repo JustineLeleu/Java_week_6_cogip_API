@@ -27,6 +27,7 @@ public class ContactController {
     }
 
     // Get method to get all the contacts
+    @CrossOrigin("*")
     @GetMapping
     public ResponseEntity<Object> getAllContacts(){
         return new ResponseEntity<>(contactService.getAllContacts(), HttpStatus.OK);
