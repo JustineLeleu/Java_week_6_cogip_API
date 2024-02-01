@@ -29,6 +29,10 @@ public class CompanyService {
 	public Iterable<Company> getCompanies() {
 		return companyRepository.findAll();
 	}
+	
+	public Iterable<Company> getCompaniesByType(String type){
+		return companyRepository.findByType(type);
+	}
 
 	public Optional<Company> getCompany(Short companyId) {
 		return companyRepository.findById(companyId);
@@ -36,7 +40,6 @@ public class CompanyService {
 
 	public Company saveCompany(Company company) {
 		return companyRepository.save(company);
-		
 	}
 
 	public void delete(Short companyId) {

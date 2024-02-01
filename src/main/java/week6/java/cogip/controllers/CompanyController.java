@@ -42,6 +42,12 @@ public class CompanyController {
 		return new ResponseEntity<>(companyService.getCompanies(), HttpStatus.OK);
 	}
 	
+	// GET method to get all companies of the specified type
+	@GetMapping("/type/{type}")
+	public ResponseEntity<Object> listCompaniesByType(@PathVariable("type") String type){
+		return new ResponseEntity<>(companyService.getCompaniesByType(type), HttpStatus.OK);
+	}
+	
 	// GET method to get a company based on the id
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> company(@PathVariable("id") Short companyId){
