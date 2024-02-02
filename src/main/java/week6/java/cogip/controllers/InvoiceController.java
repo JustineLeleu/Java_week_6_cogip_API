@@ -47,8 +47,8 @@ public class InvoiceController {
   }
   
   @PostMapping
-  public ResponseEntity<Object> createInvoice(@RequestParam (required = false) Short contactId,
-                                              @RequestParam (required = false) Short companyId) {
+  public ResponseEntity<Object> createInvoice(@RequestParam Short contactId,
+                                              @RequestParam Short companyId) {
     try {
       Company company = companyService.getCompany(companyId).orElseThrow();
       Contact contact = contactService.getContactById(contactId);
@@ -63,8 +63,8 @@ public class InvoiceController {
   
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateInvoice(@PathVariable Short id,
-                                              @RequestParam Short contactId,
-                                              @RequestParam Short companyId) {
+                                              @RequestParam(required = false) Short contactId,
+                                              @RequestParam(required = false) Short companyId) {
     try {
       Company company = companyService.getCompany(companyId).orElseThrow();
       Contact contact = contactService.getContactById(contactId);
