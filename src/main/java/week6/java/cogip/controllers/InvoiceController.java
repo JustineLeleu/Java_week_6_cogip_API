@@ -66,14 +66,26 @@ public class InvoiceController {
                                               @RequestParam(required = false) Short contactId,
                                               @RequestParam(required = false) Short companyId) {
     try {
-      Company company = companyService.getCompany(companyId).orElseThrow();
-      Contact contact = contactService.getContactById(contactId);
-      Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
-      if (invoice.isPresent()) {
-        invoice.get().setContact(contact);
-        invoice.get().setCompany(company);
-        invoiceService.updateInvoice(id, invoice.get());
-        return new ResponseEntity<>(HttpStatus.OK);
+      if (companyId != null) {
+        Company company = companyService.getCompany(companyId).orElseThrow();
+        Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
+        if (invoice.isPresent()) {
+          invoice.get().setCompany(company);
+          invoiceService.updateInvoice(id, invoice.get());
+          return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+      } else if (contactId != null) {
+        Contact contact = contactService.getContactById(contactId);
+        Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
+        if (invoice.isPresent()) {
+          invoice.get().setContact(contact);
+          invoiceService.updateInvoice(id, invoice.get());
+          return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
       } else {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
       }
