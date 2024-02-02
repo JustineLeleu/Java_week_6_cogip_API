@@ -1,6 +1,5 @@
 package week6.java.cogip.security;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,8 @@ public class AuthController {
 
     // Post method for the authentication
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody LoginDto loginDto, HttpServletRequest request){
+    public ResponseEntity<Object> login(@Valid @RequestBody LoginDto loginDto){
+        System.out.println("login");
 
         Authentication authenticationRequest = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
         Authentication authenticationResponse = authenticationManager.authenticate(authenticationRequest);

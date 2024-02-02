@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.*;
@@ -54,6 +55,11 @@ public class GlobalExceptionHandler {
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
         return errorResponse;
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<Object> handleNotConnectedException(Exception ex){
+        return new ResponseEntity<>("You must be connected to access that " + ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     // Security exceptions handling
