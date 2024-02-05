@@ -1,5 +1,7 @@
 package week6.java.cogip.controllers;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +44,17 @@ public class CompanyController {
 		return new ResponseEntity<>(companyService.getCompanies(), HttpStatus.OK);
 	}
 	
+	// GET method to get all companies of the specified type
+	@GetMapping("/type/{type}")
+	public ResponseEntity<Object> listCompaniesByType(@PathVariable("type") String type){
+		return new ResponseEntity<>(companyService.getCompaniesByType(type), HttpStatus.OK);
+	}
+	
 	// GET method to get a company based on the id
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> company(@PathVariable("id") Short companyId){
-		return new ResponseEntity<>(companyService.getCompany(companyId), HttpStatus.OK);
+	public ResponseEntity<Company> company(@PathVariable("id") Short companyId){
+		Company company = companyService.getCompany(companyId);
+		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	
 	// POST method to add a new company with name, country, tva and type (client or provider)
@@ -58,9 +67,7 @@ public class CompanyController {
 	// PUT method to update a company with the name, country, tva and type (client or provider) in the body
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> update(@PathVariable Short id, @RequestBody @Valid CompanyDto companyDto) {
-		Company company = companyDto.toCompany();
-		company.setId(id);
-		company = companyService.saveCompany(company);
+		Company company = companyService.updateCompany(companyDto.toCompany(), id);
 		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	

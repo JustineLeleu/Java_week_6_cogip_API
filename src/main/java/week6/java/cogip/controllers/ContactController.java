@@ -47,7 +47,7 @@ public class ContactController {
             @Valid @RequestBody ContactDto contactDto,
             @RequestParam Short companyId){
         Contact contact = contactDto.toContact();
-        Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
+        Company company = companyService.getCompany(companyId);
         contact.setCompany(company);
         contactService.createContact(contact);
         return new ResponseEntity<>("Contact has been created", HttpStatus.CREATED);
@@ -64,7 +64,7 @@ public class ContactController {
             @RequestParam (required = false) Short companyId){
         Contact contact = contactService.getContactById(id);
         if (companyId != null){
-            Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
+            Company company = companyService.getCompany(companyId);
             contact.setCompany(company);
         }
         contactOptionalDto.toContact(contact);
