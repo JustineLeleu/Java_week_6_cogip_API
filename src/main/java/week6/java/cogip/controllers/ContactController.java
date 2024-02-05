@@ -1,9 +1,12 @@
 package week6.java.cogip.controllers;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import week6.java.cogip.dtos.ContactDto;
 import week6.java.cogip.dtos.ContactOptionalDto;
@@ -16,6 +19,7 @@ import java.util.NoSuchElementException;
 
 // Controller for the contact table
 @RestController
+@Validated
 @RequestMapping("/api/contact")
 public class ContactController {
     private final ContactService contactService;
@@ -47,6 +51,8 @@ public class ContactController {
     public ResponseEntity<Object> createContact(
             @Valid @RequestBody ContactDto contactDto,
             @RequestParam Short companyId){
+        System.out.println("Test");
+        if (companyId == null) System.out.println("null");
         Contact contact = contactDto.toContact();
         Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
         contact.setCompany(company);

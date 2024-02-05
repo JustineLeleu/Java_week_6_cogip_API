@@ -12,16 +12,16 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import java.io.IOException;
 
 @Component
-public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class CustomBearerAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final HandlerExceptionResolver resolver;
 
-    public CustomAuthenticationEntryPoint(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+    public CustomBearerAuthenticationEntryPoint(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
         this.resolver = resolver;
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        authException.printStackTrace();
-        this.resolver.resolveException(request, response, null, authException);
+        System.out.println("token exception");
+        resolver.resolveException(request, response, null, authException);
     }
 }

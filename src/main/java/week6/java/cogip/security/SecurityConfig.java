@@ -46,9 +46,12 @@ public class SecurityConfig {
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
-    public SecurityConfig(CustomAuthenticationEntryPoint customAuthenticationEntryPoint, CustomAccessDeniedHandler customAccessDeniedHandler) throws NoSuchAlgorithmException {
+    private final CustomBearerAuthenticationEntryPoint customBearerAuthenticationEntryPoint;
+
+    public SecurityConfig(CustomAuthenticationEntryPoint customAuthenticationEntryPoint, CustomAccessDeniedHandler customAccessDeniedHandler, CustomBearerAuthenticationEntryPoint customBearerAuthenticationEntryPoint) throws NoSuchAlgorithmException {
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
         this.customAccessDeniedHandler = customAccessDeniedHandler;
+        this.customBearerAuthenticationEntryPoint = customBearerAuthenticationEntryPoint;
 
         // Generate a public/private key pair.
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -64,7 +67,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/contact").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
+                        //.requestMatchers(HttpMethod.POST, "/api/contact").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/company").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
@@ -78,11 +81,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/invoice/{id}").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+                //.httpBasic(Customizer.withDefaults())
+                .httpBasic(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .oauth2ResourceServer(oauth -> oauth
+                        .jwt(Customizer.withDefaults())
+                        .authenticationEntryPoint(customBearerAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
-                .exceptionHandling(exc -> exc.accessDeniedHandler(customAccessDeniedHandler))
+                //.exceptionHandling(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
+                //.exceptionHandling(exc -> exc.accessDeniedHandler(customAccessDeniedHandler))
                 .build();
     }
 
