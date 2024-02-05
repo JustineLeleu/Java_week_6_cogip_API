@@ -62,10 +62,14 @@ public class UserController {
   public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto,
                                            @RequestParam(required = false, defaultValue = "USER") String role) {
     try {
+      Optional<User> existingUser = userService.getUserByUsername(userDto.getUsername());
+      if (existingUser.isPresent()) {
+        return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+      }
       User user = userDto.dtoUser(new User());
       user.setRole(role);
       User createdUser = userService.createUser(user);
-      return ResponseEntity.ok(createdUser);
+      return ResponseEntity.ok("User has been created");
     }
     catch (ResponseStatusException e) {
       return new ResponseEntity<>("User can't be created", HttpStatus.NOT_FOUND);
@@ -90,7 +94,7 @@ public class UserController {
       if (password != null) user.setPassword(encoder.encode(password));
       if (role != null) user.setRole(role);
       userService.createUser(user);
-      return ResponseEntity.ok(" User with the id : " + id + " as been updated");
+      return ResponseEntity.ok(" User with the id : " + id + " has been updated");
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
@@ -108,7 +112,7 @@ public class UserController {
     try {
       if (userService.getUser(id).isPresent()) {
         userService.deleteUser(id);
-        return ResponseEntity.ok("User with the id " + id +  " as been deleted");
+        return ResponseEntity.ok("User with the id " + id +  " has been deleted");
       } else {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
       }
