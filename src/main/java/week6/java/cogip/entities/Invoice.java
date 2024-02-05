@@ -1,11 +1,14 @@
 package week6.java.cogip.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 @Getter
 @Setter
 public class Invoice {
@@ -32,8 +35,10 @@ public class Invoice {
           cascade = {
                   CascadeType.PERSIST,
                   CascadeType.MERGE
-          }
+          },
+          fetch = FetchType.EAGER
   )
+  @JsonIgnoreProperties(value = { "contacts","invoices" })
   @JoinColumn(name = "invoice_company_id")
   private Company company;
   
@@ -41,8 +46,10 @@ public class Invoice {
           cascade = {
                   CascadeType.PERSIST,
                   CascadeType.MERGE
-          }
+          },
+          fetch = FetchType.EAGER
   )
+  @JsonIgnoreProperties(value = { "company","invoices" })
   @JoinColumn(name = "invoice_contact_id")
   private Contact contact;
   

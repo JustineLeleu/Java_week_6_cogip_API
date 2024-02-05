@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +47,10 @@ public class Contact {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
-            }
+            },
+            fetch = FetchType.EAGER
     )
+    @JsonIgnoreProperties(value = { "contacts","invoices" })
     @JoinColumn(name = "contact_company_id")
     private Company company;
 
@@ -53,6 +60,7 @@ public class Contact {
             orphanRemoval = true,
             fetch = FetchType.EAGER
     )
+    @JsonIgnoreProperties(value = { "company","contact" })
     private List<Invoice> invoices = new ArrayList<>();
 
     public Contact() {

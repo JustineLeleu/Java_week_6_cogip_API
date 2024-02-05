@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
@@ -21,7 +23,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "company")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @DynamicUpdate
 public class Company {
 	
@@ -52,14 +53,16 @@ public class Company {
 			   orphanRemoval = true,
 			   fetch = FetchType.EAGER
 			  )
+	@JsonIgnoreProperties(value = { "company" ,"contact"})
 	private List<Invoice> invoices = new ArrayList<>();
 
-    @OneToMany(
+	@OneToMany(
             mappedBy = "company",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER
     )
+	@JsonIgnoreProperties(value = { "company","invoices" })
     private List<Contact> contacts = new ArrayList<>();
 
     public Company() {

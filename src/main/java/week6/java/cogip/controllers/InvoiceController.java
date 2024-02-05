@@ -50,7 +50,7 @@ public class InvoiceController {
   public ResponseEntity<Object> createInvoice(@RequestParam Short contactId,
                                               @RequestParam Short companyId) {
     try {
-      Company company = companyService.getCompany(companyId).orElseThrow();
+      Company company = companyService.getCompany(companyId);
       Contact contact = contactService.getContactById(contactId);
       invoiceService.createInvoice(contact, company);
       System.out.println(company);
@@ -67,7 +67,7 @@ public class InvoiceController {
                                               @RequestParam(required = false) Short companyId) {
     try {
       if (companyId != null) {
-        Company company = companyService.getCompany(companyId).orElseThrow();
+        Company company = companyService.getCompany(companyId);
         Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
         if (invoice.isPresent()) {
           invoice.get().setCompany(company);
