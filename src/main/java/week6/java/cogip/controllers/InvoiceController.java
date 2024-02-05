@@ -55,7 +55,7 @@ public class InvoiceController {
       invoiceService.createInvoice(contact, company);
       System.out.println(company);
       System.out.println(contact);
-      return new ResponseEntity<>(HttpStatus.CREATED);
+      return new ResponseEntity<>("Invoice has been created", HttpStatus.CREATED);
     } catch (ResponseStatusException e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -72,7 +72,7 @@ public class InvoiceController {
         if (invoice.isPresent()) {
           invoice.get().setCompany(company);
           invoiceService.updateInvoice(id, invoice.get());
-          return new ResponseEntity<>(HttpStatus.OK);
+          return new ResponseEntity<>("Invoice with the id : " + id + " has been updated", HttpStatus.OK);
         } else {
           throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -82,7 +82,7 @@ public class InvoiceController {
         if (invoice.isPresent()) {
           invoice.get().setContact(contact);
           invoiceService.updateInvoice(id, invoice.get());
-          return new ResponseEntity<>(HttpStatus.OK);
+          return new ResponseEntity<>("Invoice with the id : " + id + " has been updated", HttpStatus.OK);
         } else {
           throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -97,7 +97,7 @@ public class InvoiceController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> deleteInvoice(@PathVariable Short id) {
     invoiceService.deleteInvoice(id);
-    return new ResponseEntity<>("Deleted" , HttpStatus.OK);
+    return new ResponseEntity<>("Invoice with the id : \" + id + \" has been deleted" , HttpStatus.OK);
   }
   
 }

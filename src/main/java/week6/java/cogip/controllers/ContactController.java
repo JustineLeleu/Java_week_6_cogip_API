@@ -50,7 +50,7 @@ public class ContactController {
         Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
         contact.setCompany(company);
         contactService.createContact(contact);
-        return new ResponseEntity<>(contact, HttpStatus.CREATED);
+        return new ResponseEntity<>("Contact has been created", HttpStatus.CREATED);
     }
 
     // Put method to update a contact by id
@@ -69,7 +69,7 @@ public class ContactController {
         }
         contactOptionalDto.toContact(contact);
         contactService.createContact(contact);
-        return new ResponseEntity<>("Contact updated", HttpStatus.OK);
+        return new ResponseEntity<>("Contact with the id : " + contact.getId() + " has been updated", HttpStatus.OK);
     }
 
     // Delete method to delete a contact by id
@@ -77,6 +77,6 @@ public class ContactController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteContact(@PathVariable short id){
         contactService.deleteContact(id);
-        return new ResponseEntity<>("Contact deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Contact with the id : " + id + " has been deleted", HttpStatus.OK);
     }
 }
