@@ -1,7 +1,6 @@
 package week6.java.cogip.service;
 
 // All imports for the UserService class
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.User;
 import week6.java.cogip.repository.UserRepository;
@@ -33,7 +32,7 @@ public class UserService {
   public void deleteUser(Short id) {
     userRepository.deleteById(id);
   }
-  // Update an user in the database
+  // Update a user in the database
   public Optional<User> getUser(Short id) {
     return userRepository.findById(id);
   }

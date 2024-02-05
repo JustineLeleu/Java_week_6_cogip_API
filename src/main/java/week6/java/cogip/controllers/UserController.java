@@ -2,8 +2,6 @@ package week6.java.cogip.controllers;
 
 // All the imports needed for the controller
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +12,6 @@ import week6.java.cogip.dtos.UserDto;
 import week6.java.cogip.entities.User;
 import week6.java.cogip.service.UserService;
 
-import java.lang.reflect.Method;
 import java.util.Optional;
 
 // Controller for user entity with (C)reate (R)ead (U)pdate (D)elete methods and mapping to /api/user
