@@ -51,13 +51,11 @@ public class ContactController {
     public ResponseEntity<Object> createContact(
             @Valid @RequestBody ContactDto contactDto,
             @RequestParam Short companyId){
-        System.out.println("Test");
-        if (companyId == null) System.out.println("null");
         Contact contact = contactDto.toContact();
         Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company by ID: " + companyId));
         contact.setCompany(company);
         contactService.createContact(contact);
-        return new ResponseEntity<>(contact, HttpStatus.CREATED);
+        return new ResponseEntity<>("Contact created, id: " + contact.getId(), HttpStatus.CREATED);
     }
 
     // Put method to update a contact by id

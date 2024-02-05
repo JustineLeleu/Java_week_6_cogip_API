@@ -67,7 +67,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        //.requestMatchers(HttpMethod.POST, "/api/contact").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/contact").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/contact/{id}").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/company").hasAnyAuthority("ROLE_MODERATOR","ROLE_ADMIN")

@@ -63,8 +63,9 @@ public class InvoiceController {
   
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateInvoice(@PathVariable Short id,
-                                              @RequestParam Short contactId,
-                                              @RequestParam Short companyId) {
+                                              @RequestParam (required = false) Short contactId,
+                                              @RequestParam (required = false) Short companyId) {
+    System.out.println(id);
     try {
       Company company = companyService.getCompany(companyId).orElseThrow();
       Contact contact = contactService.getContactById(contactId);
