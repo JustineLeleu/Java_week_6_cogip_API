@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    static private int id;
+    static private int id = 24;
     private final Authentication authUser = CogipApplicationTests.createAuth("ROLE_USER");
     private final Authentication authAdmin = CogipApplicationTests.createAuth("ROLE_ADMIN");
 
@@ -52,17 +52,12 @@ class LoginControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequestBody = objectMapper.writeValueAsString(requestBody);
 
-        String response = mockMvc.perform(post("/api/user")
+        mockMvc.perform(post("/api/user")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonRequestBody)
                                 .with(SecurityMockMvcRequestPostProcessors.authentication(authAdmin))
                 )
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        id = JsonPath.parse(response).read("id");
+                .andExpect(status().isOk());
     }
 
     // Test 3

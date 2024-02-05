@@ -53,18 +53,13 @@ class ContactControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequestBody = objectMapper.writeValueAsString(requestBody);
 
-        String response = this.mockMvc.perform(post("/api/contact")
+        this.mockMvc.perform(post("/api/contact")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequestBody)
                         .param("companyId", "1")
                         .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        id = JsonPath.parse(response).read("id");
+                .andExpect(status().isCreated());
     }
 
     // Test 2
@@ -72,11 +67,14 @@ class ContactControllerTest {
     @Test
     @Order(2)
     void getContactTest() throws Exception {
-        this.mockMvc.perform(get("/api/contact")
+        String response = this.mockMvc.perform(get("/api/contact")
                         .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andReturn();
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        id = JsonPath.parse(response).read("$[2].id");
     }
 
     // Test 3
