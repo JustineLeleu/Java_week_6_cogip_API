@@ -62,6 +62,10 @@ public class UserController {
   public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto,
                                            @RequestParam(required = false, defaultValue = "USER") String role) {
     try {
+      Optional<User> existingUser = userService.getUserByUsername(userDto.getUsername());
+      if (existingUser.isPresent()) {
+        return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+      }
       User user = userDto.dtoUser(new User());
       user.setRole(role);
       User createdUser = userService.createUser(user);
