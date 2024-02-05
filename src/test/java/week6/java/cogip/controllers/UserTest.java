@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import week6.java.cogip.CogipApplicationTests;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,10 +47,14 @@ class UserTest {
   // status() is used to check if the status of the response is the same as the expected status
   // $[0].id is used to get the id of the first user in the response
   // Get "all" users from the database
+
+  private final Authentication auth = CogipApplicationTests.createAuth("ROLE_ADMIN");
+
   @Test
   @Order(1)
   void GetTest() throws Exception {
-    MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/user"))
+    MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/user")
+                    .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
             .andExpect(status().isOk())
             .andReturn();
     String response = result.getResponse().getContentAsString();
@@ -71,6 +78,7 @@ class UserTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonRequestBody)
 //                    .param("role", "USER/MODERATOR/ADMIN")
+                    .with(SecurityMockMvcRequestPostProcessors.authentication(auth))
             )
             .andExpect(status().isOk());
   }
@@ -81,6 +89,7 @@ class UserTest {
   void GetByIdTest() throws Exception {
     this.mockMvc.perform(MockMvcRequestBuilders.get("/api/user/" + id)
                     .contentType(MediaType.APPLICATION_JSON)
+                    .with(SecurityMockMvcRequestPostProcessors.authentication(auth))
             )
             .andExpect(status().isOk());
   }
@@ -99,6 +108,7 @@ class UserTest {
     this.mockMvc.perform(MockMvcRequestBuilders.put("/api/user/" + id)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonRequestBody)
+                    .with(SecurityMockMvcRequestPostProcessors.authentication(auth))
             )
             .andExpect(status().isOk());
   }
@@ -109,6 +119,7 @@ class UserTest {
   void DeleteTest() throws Exception {
     this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/user/" + id)
                     .contentType(MediaType.APPLICATION_JSON)
+                    .with(SecurityMockMvcRequestPostProcessors.authentication(auth))
             )
             .andExpect(status().isOk());
   }

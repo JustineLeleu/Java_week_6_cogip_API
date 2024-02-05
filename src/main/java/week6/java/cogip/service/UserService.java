@@ -1,6 +1,7 @@
 package week6.java.cogip.service;
 
 // All imports for the UserService class
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import week6.java.cogip.entities.User;
 import week6.java.cogip.repository.UserRepository;
@@ -36,7 +37,7 @@ public class UserService {
   public Optional<User> getUser(Short id) {
     return userRepository.findById(id);
   }
-  
+
   public Optional<User> getUserByUsername(String username) {
     return userRepository.findByUsername(username);
   }

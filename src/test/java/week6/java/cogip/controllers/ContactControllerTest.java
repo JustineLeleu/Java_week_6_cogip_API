@@ -18,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+import week6.java.cogip.CogipApplicationTests;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,8 @@ class ContactControllerTest {
     private MockMvc mockMvc;
 
     static private int id;
+
+    private final Authentication auth = CogipApplicationTests.createAuth("ROLE_ADMIN");
 
     // Test 1
     // Create a contact and must return a status 200 created
@@ -53,7 +57,7 @@ class ContactControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequestBody)
                         .param("companyId", "1")
-                )
+                        .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andReturn()
@@ -68,7 +72,8 @@ class ContactControllerTest {
     @Test
     @Order(2)
     void getContactTest() throws Exception {
-        this.mockMvc.perform(get("/api/contact"))
+        this.mockMvc.perform(get("/api/contact")
+                        .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -82,7 +87,8 @@ class ContactControllerTest {
     void getContactByIdTest() throws Exception {
         System.out.println("use id");
         System.out.println(id);
-        this.mockMvc.perform(get("/api/contact/" + id))
+        this.mockMvc.perform(get("/api/contact/" + id)
+                .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -103,6 +109,7 @@ class ContactControllerTest {
         this.mockMvc.perform(put("/api/contact/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequestBody)
+                        .with(SecurityMockMvcRequestPostProcessors.authentication(auth))
                 )
                 .andExpect(status().isOk());
     }
@@ -113,7 +120,8 @@ class ContactControllerTest {
     @Test
     @Order(5)
     void deleteContactByIdTest() throws Exception {
-        this.mockMvc.perform(delete("/api/contact/" + id))
+        this.mockMvc.perform(delete("/api/contact/" + id)
+                        .with(SecurityMockMvcRequestPostProcessors.authentication(auth)))
                 .andExpect(status().isOk());
     }
 }
