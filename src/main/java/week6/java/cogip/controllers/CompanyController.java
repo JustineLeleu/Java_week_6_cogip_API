@@ -1,5 +1,7 @@
 package week6.java.cogip.controllers;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,8 +52,9 @@ public class CompanyController {
 	
 	// GET method to get a company based on the id
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> company(@PathVariable("id") Short companyId){
-		return new ResponseEntity<>(companyService.getCompany(companyId), HttpStatus.OK);
+	public ResponseEntity<Company> company(@PathVariable("id") Short companyId){
+		Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company with ID " + companyId));
+		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	
 	// POST method to add a new company with name, country, tva and type (client or provider)

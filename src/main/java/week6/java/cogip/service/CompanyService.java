@@ -1,12 +1,13 @@
 package week6.java.cogip.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import week6.java.cogip.entities.Company;
 import week6.java.cogip.repository.CompanyRepository;
-
-import java.util.Optional;
 
 @Service
 public class CompanyService {
@@ -37,9 +38,20 @@ public class CompanyService {
 	public Optional<Company> getCompany(Short companyId) {
 		return companyRepository.findById(companyId);
 	}
+	
+	public Optional<Company> getCompanyWithException(Short companyId) {
+		return companyRepository.findById(companyId);
+	}
 
 	public Company saveCompany(Company company) {
-		return companyRepository.save(company);
+		Company newCompany = new Company();
+		try {
+			newCompany = companyRepository.save(company);
+		}
+		catch (DataIntegrityViolationException e){
+			throw new DataIntegrityViolationException(e.getRootCause().getMessage());
+		}
+		return newCompany;
 	}
 
 	public void delete(Short companyId) {
