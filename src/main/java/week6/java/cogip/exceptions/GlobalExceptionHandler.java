@@ -1,7 +1,5 @@
 package week6.java.cogip.exceptions;
 
-import jakarta.validation.ConstraintViolationException;
-import org.springframework.core.MethodParameter;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,13 +10,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -110,14 +106,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidBearerTokenException.class)
     public ResponseEntity<Object> handleInvalidBearerTokenException(InvalidBearerTokenException ex) {
-        System.out.println("handle token exception");
-        System.out.println(ex.getMessage());
         return new ResponseEntity<>("The access token provided is expired, revoked, malformed, or invalid for other reasons.", HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleOtherException(Exception ex) {
-        ex.printStackTrace();
         return new ResponseEntity<> ("A server internal error occurs. " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
