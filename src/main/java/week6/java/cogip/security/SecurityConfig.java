@@ -33,7 +33,6 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
 
 // Security configuration class to set the security of the application
 @Configuration
@@ -81,15 +80,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/invoice/{id}").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                //.httpBasic(Customizer.withDefaults())
                 .httpBasic(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .oauth2ResourceServer(oauth -> oauth
                         .jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customBearerAuthenticationEntryPoint)
                         .accessDeniedHandler(customAccessDeniedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                //.exceptionHandling(exc -> exc.authenticationEntryPoint(customAuthenticationEntryPoint))
-                //.exceptionHandling(exc -> exc.accessDeniedHandler(customAccessDeniedHandler))
                 .build();
     }
 

@@ -21,7 +21,6 @@ public class CustomBearerAuthenticationEntryPoint implements AuthenticationEntry
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        System.out.println("token exception");
         resolver.resolveException(request, response, null, authException);
     }
 }
