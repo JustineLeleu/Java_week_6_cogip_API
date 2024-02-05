@@ -53,7 +53,7 @@ public class CompanyController {
 	// GET method to get a company based on the id
 	@GetMapping("/{id}")
 	public ResponseEntity<Company> company(@PathVariable("id") Short companyId){
-		Company company = companyService.getCompany(companyId).orElseThrow(() -> new NoSuchElementException("No company with ID " + companyId));
+		Company company = companyService.getCompany(companyId);
 		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	
@@ -67,9 +67,7 @@ public class CompanyController {
 	// PUT method to update a company with the name, country, tva and type (client or provider) in the body
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> update(@PathVariable Short id, @RequestBody @Valid CompanyDto companyDto) {
-		Company company = companyDto.toCompany();
-		company.setId(id);
-		company = companyService.saveCompany(company);
+		Company company = companyService.updateCompany(companyDto.toCompany(), id);
 		return new ResponseEntity<>(company, HttpStatus.OK);
 	}
 	

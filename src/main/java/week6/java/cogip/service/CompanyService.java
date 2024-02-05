@@ -1,5 +1,6 @@
 package week6.java.cogip.service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class CompanyService {
 		return companyRepository.findByType(type);
 	}
 
-	public Optional<Company> getCompany(Short companyId) {
-		return companyRepository.findById(companyId);
+	public Company getCompany(Short companyId) {
+		return companyRepository.findById(companyId).orElseThrow(() -> new NoSuchElementException("No company with ID " + companyId));
 	}
 	
 	public Optional<Company> getCompanyWithException(Short companyId) {
@@ -44,14 +45,25 @@ public class CompanyService {
 	}
 
 	public Company saveCompany(Company company) {
-		Company newCompany = new Company();
 		try {
-			newCompany = companyRepository.save(company);
+			companyRepository.save(company);
 		}
 		catch (DataIntegrityViolationException e){
 			throw new DataIntegrityViolationException(e.getRootCause().getMessage());
 		}
-		return newCompany;
+		return company;
+	}
+	
+	public Company updateCompany(Company company, Short id) {
+		getCompany(id);
+		company.setId(id);
+		try {
+			companyRepository.save(company);
+		}
+		catch (DataIntegrityViolationException e){
+			throw new DataIntegrityViolationException(e.getRootCause().getMessage());
+		}
+		return company;
 	}
 
 	public void delete(Short companyId) {
