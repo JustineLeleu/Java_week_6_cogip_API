@@ -11,8 +11,6 @@ import week6.java.cogip.entities.Contact;
 import week6.java.cogip.service.CompanyService;
 import week6.java.cogip.service.ContactService;
 
-import java.util.NoSuchElementException;
-
 // Controller for the contact table
 @RestController
 @RequestMapping("/api/contact")
